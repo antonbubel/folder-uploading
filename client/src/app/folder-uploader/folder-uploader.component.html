@@ -1,0 +1,47 @@
+<input
+  hidden
+  type="file"
+  id="folderUploader"
+  directory
+  multiple
+  webkitdirectory
+  mozdirectory
+  #folderUploader
+  (change)="handleFolderChange($event)" />
+
+<div class="file-uploader-wrapper">
+  <mat-form-field class="w-100" appearance="outline" [class.file-uploader-disabled]="isDisabled">
+    <input
+      matInput
+      type="text"
+      id="fileName"
+      [value]="fileName"
+      placeholder="Choose a file"
+      disabled="true" />
+
+    <button
+      mat-button
+      mat-icon-button
+      matSuffix
+      type="button"
+      *ngIf="!fileName" 
+      (click)="folderUploader.click()"
+      [disabled]="isDisabled">
+      <mat-icon matSuffix>
+        attach_file
+      </mat-icon>
+    </button>
+
+    <button
+      mat-button
+      mat-icon-button
+      matSuffix
+      type="button"
+      *ngIf="fileName && !isDisabled" 
+      (click)="removeFile()">
+      <mat-icon>
+        close
+      </mat-icon>
+    </button>
+  </mat-form-field>
+</div>

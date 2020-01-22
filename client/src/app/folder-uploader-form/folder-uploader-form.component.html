@@ -1,0 +1,12 @@
+<form [formGroup]="folderUploaderForm" (ngSubmit)="upload()">
+  <folder-uploader [formControlName]="folderUploaderFormFields.FILES"></folder-uploader>
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    [disabled]="!folderUploaderForm.valid || disableFormSubmit">
+    Upload
+  </button>
+</form>
+
+<mat-progress-bar *ngIf="uploadingInProgress" mode="determinate" [value]="uploadingProgress"></mat-progress-bar>
