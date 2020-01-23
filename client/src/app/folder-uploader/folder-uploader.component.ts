@@ -69,7 +69,7 @@ export class FolderUploaderComponent implements OnInit, OnDestroy, ControlValueA
     }
 
     const file = files.item(0) as any;
-    const [folderName] = /^.+\//.exec(file.webkitRelativePath);
+    const [folderName] = /^([^\/]*)\//.exec(file.webkitRelativePath);
 
     this.folderName = folderName;
   }
