@@ -20,6 +20,8 @@ export class FolderUploaderComponent implements OnInit, OnDestroy, ControlValueA
 
   public isDisabled: boolean;
 
+  public folderName = '';
+
   public onChange = (_: any) => { };
   public onTouched = () => { };
 
@@ -33,10 +35,15 @@ export class FolderUploaderComponent implements OnInit, OnDestroy, ControlValueA
   }
 
   public handleFolderChange() {
-    // files can be acessed from this.folderUploaderInput.nativeElement.files;
     const files: FileList = this.folderUploaderInput.nativeElement.files;
 
+    this.updateFolderName(files);
     this.onChange(files);
+  }
+
+  public removeFolder() {
+    this.folderName = '';
+    this.onChange(null);
   }
 
   public writeValue(value: any): void {
@@ -52,5 +59,18 @@ export class FolderUploaderComponent implements OnInit, OnDestroy, ControlValueA
 
   public setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
+  }
+
+  private updateFolderName(files: FileList): void {
+    if (!files || !files.length) {
+      this.folderName = '';
+
+      return;
+    }
+
+    const file = files.item(0) as any;
+    const [folderName] = /^.+\//.exec(file.webkitRelativePath);
+
+    this.folderName = folderName;
   }
 }

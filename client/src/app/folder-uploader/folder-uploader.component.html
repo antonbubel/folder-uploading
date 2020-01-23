@@ -14,9 +14,9 @@
     <input
       matInput
       type="text"
-      id="fileName"
-      [value]="fileName"
-      placeholder="Choose a file"
+      id="folderName"
+      [value]="folderName"
+      placeholder="Choose a folder"
       disabled="true" />
 
     <button
@@ -24,11 +24,11 @@
       mat-icon-button
       matSuffix
       type="button"
-      *ngIf="!fileName" 
+      *ngIf="!folderName" 
       (click)="folderUploader.click()"
       [disabled]="isDisabled">
       <mat-icon matSuffix>
-        attach_file
+        folder_open
       </mat-icon>
     </button>
 
@@ -37,8 +37,8 @@
       mat-icon-button
       matSuffix
       type="button"
-      *ngIf="fileName && !isDisabled" 
-      (click)="removeFile()">
+      *ngIf="folderName && !isDisabled" 
+      (click)="removeFolder()">
       <mat-icon>
         close
       </mat-icon>

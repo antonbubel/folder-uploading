@@ -1,4 +1,4 @@
-<form [formGroup]="folderUploaderForm" (ngSubmit)="upload()">
+<form class="w-100 mb-3" [formGroup]="folderUploaderForm" (ngSubmit)="upload()">
   <folder-uploader [formControlName]="folderUploaderFormFields.FILES"></folder-uploader>
   <button
     type="submit"

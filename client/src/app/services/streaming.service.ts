@@ -38,9 +38,16 @@ export class StreamingService {
   }
 
   private async processUpload(uploadId: string, files: FileList, progress$: BehaviorSubject<UploadEvent>) {
+
+    // tslint:disable-next-line: no-console
+    console.time(`preparing chunks for upload ${uploadId}`);
+
     const chunks = this.prepareChunks(files);
     const totalBytes = chunks.map(chunk => chunk.size)
       .reduce((firstChunkSize, secondChunkSize) => firstChunkSize + secondChunkSize);
+
+    // tslint:disable-next-line: no-console
+    console.timeEnd(`preparing chunks for upload ${uploadId}`);
 
     let loaded = 0;
     this.reportProgress(uploadId, loaded, totalBytes, progress$);
@@ -61,7 +68,6 @@ export class StreamingService {
         .toPromise();
 
       loaded += chunk.size;
-      this.reportProgress(uploadId, loaded, totalBytes, progress$);
     }
   }
 
@@ -106,7 +112,7 @@ export class StreamingService {
   private reportProgress(uploadId: string, loaded: number, total: number, progress$: BehaviorSubject<UploadEvent>) {
     const uploadEvent: UploadEvent = {
       uploadId,
-      progress: loaded / total * 100,
+      progress: Math.round(loaded / total * 100),
       loaded,
       total
     };
